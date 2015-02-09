@@ -3,7 +3,6 @@
 namespace Carrooi\Addressable\Model\Facades;
 
 use Carrooi\Addressable\Model\Entities\IAddress;
-use Carrooi\Addressable\Model\Entities\IAddressableEntity;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Object;
 
