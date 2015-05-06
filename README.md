@@ -147,5 +147,9 @@ And that's it :)
 
 ## Changelog
 
+* 1.1.0
+	+ House number is no more required, so whole street with all numbers can be stored in `street` column (BC break)
+	+ Improved tests
+
 * 1.0.0
 	+ Initial version
