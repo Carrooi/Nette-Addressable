@@ -9,8 +9,12 @@
 
 namespace CarrooiTests\Labels\Model\Facades;
 
-use CarrooiTests\Addressable\TestCase;
+use Carrooi\Addressable\Model\DefaultEntities\DefaultAddress;
+use Carrooi\Addressable\Model\Facades\AddressesFacade;
+use Mockery;
 use Tester\Assert;
+use Tester\Environment;
+use Tester\TestCase;
 
 require_once __DIR__ . '/../../../bootstrap.php';
 
@@ -22,67 +26,48 @@ class AddressesFacadeTest extends TestCase
 {
 
 
-	/** @var \Carrooi\Addressable\Model\Facades\AddressesFacade */
-	private $addresses;
-
-	/** @var \CarrooiTests\AddressableApp\Model\Facades\Users */
-	private $users;
-
-	/** @var \Kdyby\Doctrine\EntityDao */
-	private $dao;
-
-
-	public function setUp()
-	{
-		$container = $this->createContainer();
-
-		$this->addresses = $container->getByType('Carrooi\Addressable\Model\Facades\AddressesFacade');
-		$this->users = $container->getByType('CarrooiTests\AddressableApp\Model\Facades\Users');
-		$this->dao = $container->getByType('Kdyby\Doctrine\EntityManager')->getRepository($this->addresses->getClass());
-	}
-
-
-	public function tearDown()
-	{
-		$this->addresses = null;
-	}
-
-
 	public function testCreate()
 	{
-		$address = $this->addresses->create('Prague', 13000, [
+		$em = Mockery::mock('Kdyby\Doctrine\EntityManager')
+			->shouldReceive('getRepository')
+			->shouldReceive('persist')->andReturnSelf()
+			->shouldReceive('flush')
+			->getMock();
+
+		$addresses = new AddressesFacade('Carrooi\Addressable\Model\DefaultEntities\DefaultAddress', $em);
+
+		$address = $addresses->create('Prague', 13000, [
 			'houseNumber' => 5555,
 			'orientationNumber' => '8a',
 			'street' => 'Lorem',
 		]);
 
-		$user = $this->users->create();
-		$user->setAddress($address);
-
-		$this->dao->getEntityManager()->persist($user)->flush();
-
 		Assert::type('Carrooi\Addressable\Model\Entities\IAddress', $address);
-		Assert::notSame(null, $address->getId());
 		Assert::same('Prague', $address->getCity());
 		Assert::same(13000, $address->getPostalCode());
 		Assert::same(5555, $address->getHouseNumber());
 		Assert::same('8a', $address->getOrientationNumber());
 		Assert::same('Lorem', $address->getStreet());
-
-		Assert::true($user->hasAddress());
-		Assert::same($address->getId(), $user->getAddress()->getId());
 	}
 
 
 	public function testUpdate()
 	{
-		$address = $this->addresses->create('Prague', 13000, [
-			'houseNumber' => 5555,
-			'orientationNumber' => '8a',
-			'street' => 'Lorem',
-		]);
+		$em = Mockery::mock('Kdyby\Doctrine\EntityManager')
+			->shouldReceive('getRepository')
+			->shouldReceive('flush')
+			->getMock();
 
-		$this->addresses->update($address, [
+		$addresses = new AddressesFacade('Carrooi\Addressable\Model\DefaultEntities\DefaultAddress', $em);
+
+		$address = new DefaultAddress;
+		$address->setCity('New York');
+		$address->setPostalCode(88877);
+		$address->setHouseNumber(1212);
+		$address->setOrientationNumber('45');
+		$address->setStreet('Obama\'s street');
+
+		$addresses->update($address, [
 			'city' => 'New York',
 			'postalCode' => 88877,
 			'houseNumber' => 1212,
@@ -100,30 +85,19 @@ class AddressesFacadeTest extends TestCase
 
 	public function testRemove()
 	{
-		$address = $this->addresses->create('Prague', 13000, [
-			'houseNumber' => 5555,
-			'orientationNumber' => '8a',
-			'street' => 'Lorem',
-		]);
+		Environment::$checkAssertions = false;
 
-		$user = $this->users->create();
-		$user->setAddress($address);
+		$em = Mockery::mock('Kdyby\Doctrine\EntityManager')
+			->shouldReceive('getRepository')
+			->shouldReceive('remove')->andReturnSelf()
+			->shouldReceive('flush')
+			->getMock();
 
-		$this->dao->getEntityManager()->persist($user)->flush();
+		$addresses = new AddressesFacade('Carrooi\Addressable\Model\DefaultEntities\DefaultAddress', $em);
 
-		$this->addresses->remove($address);
-		$user->setAddress(null);
+		$address = new DefaultAddress;
 
-		$this->dao->getEntityManager()->persist($user)->flush();
-
-		$address = $this->dao->findOneBy([
-			'id' => $address->getId(),
-		]);
-
-		$user = $this->users->findOneById($user->getId());
-
-		Assert::null($address);
-		Assert::false($user->hasAddress());
+		$addresses->remove($address);
 	}
 
 }

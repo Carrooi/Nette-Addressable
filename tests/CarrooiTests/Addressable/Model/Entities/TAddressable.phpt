@@ -11,8 +11,8 @@ namespace CarrooiTests\Labels\Model\Entities;
 
 use Carrooi\Addressable\Model\DefaultEntities\DefaultAddress;
 use Carrooi\Addressable\Model\Entities\TAddressable;
-use CarrooiTests\Addressable\TestCase;
 use Tester\Assert;
+use Tester\TestCase;
 
 require_once __DIR__ . '/../../../bootstrap.php';
 
