@@ -1,8 +1,0 @@
-Carrooi\Addressable\Model\DefaultEntities\DefaultAddress::__set_state(array(
-	'id' => 1,
-	'street' => 'Lorem',
-	'city' => 'Prague',
-	'postalCode' => 13000,
-	'houseNumber' => 5555,
-	'orientationNumber' => '8a',
-))
