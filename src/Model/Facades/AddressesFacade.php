@@ -59,20 +59,22 @@ class AddressesFacade extends Object
 	/**
 	 * @param string $city
 	 * @param int $postalCode
-	 * @param int $houseNumber
 	 * @param array $values
 	 * @return \Carrooi\Addressable\Model\Entities\IAddress
 	 */
-	public function create($city, $postalCode, $houseNumber, array $values = [])
+	public function create($city, $postalCode, array $values = [])
 	{
 		$address = $this->createEntity();
 
 		$address->setCity($city);
 		$address->setPostalCode($postalCode);
-		$address->setHouseNumber($houseNumber);
 
 		if (array_key_exists('street', $values)) {
 			$address->setStreet($values['street']);
+		}
+
+		if (array_key_exists('houseNumber', $values)) {
+			$address->setHouseNumber($values['houseNumber']);
 		}
 
 		if (array_key_exists('orientationNumber', $values)) {

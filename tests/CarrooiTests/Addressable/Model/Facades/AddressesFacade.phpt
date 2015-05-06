@@ -50,7 +50,8 @@ class AddressesFacadeTest extends TestCase
 
 	public function testCreate()
 	{
-		$address = $this->addresses->create('Prague', 13000, 5555, [
+		$address = $this->addresses->create('Prague', 13000, [
+			'houseNumber' => 5555,
 			'orientationNumber' => '8a',
 			'street' => 'Lorem',
 		]);
@@ -75,7 +76,8 @@ class AddressesFacadeTest extends TestCase
 
 	public function testUpdate()
 	{
-		$address = $this->addresses->create('Prague', 13000, 5555, [
+		$address = $this->addresses->create('Prague', 13000, [
+			'houseNumber' => 5555,
 			'orientationNumber' => '8a',
 			'street' => 'Lorem',
 		]);
@@ -98,7 +100,8 @@ class AddressesFacadeTest extends TestCase
 
 	public function testRemove()
 	{
-		$address = $this->addresses->create('Prague', 13000, 5555, [
+		$address = $this->addresses->create('Prague', 13000, [
+			'houseNumber' => 5555,
 			'orientationNumber' => '8a',
 			'street' => 'Lorem',
 		]);

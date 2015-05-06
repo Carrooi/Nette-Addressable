@@ -62,6 +62,12 @@ interface IAddress
 
 
 	/**
+	 * @return bool
+	 */
+	public function hasHouseNumber();
+
+
+	/**
 	 * @return int
 	 */
 	public function getHouseNumber();

@@ -34,7 +34,7 @@ trait TAddress
 
 
 	/**
-	 * @ORM\Column(type="integer", length=6, nullable=false)
+	 * @ORM\Column(type="integer", length=6, nullable=true)
 	 * @var int
 	 */
 	private $houseNumber;
@@ -112,6 +112,15 @@ trait TAddress
 	{
 		$this->postalCode = $postalCode;
 		return $this;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function hasHouseNumber()
+	{
+		return $this->houseNumber !== null;
 	}
 
 
