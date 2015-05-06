@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Test: Carrooi\Labels\Addressable\Facades\AddressesFacade
+ * Test: Carrooi\Addressable\Facades\AddressesFacade
  *
- * @testCase CarrooiTests\Labels\Addressable\Facades\AddressesFacadeTest
+ * @testCase CarrooiTests\Addressable\Facades\AddressesFacadeTest
  * @author David Kudera
  */
 
-namespace CarrooiTests\Labels\Model\Facades;
+namespace CarrooiTests\Addressable\Model\Facades;
 
 use Carrooi\Addressable\Model\DefaultEntities\DefaultAddress;
 use Carrooi\Addressable\Model\Facades\AddressesFacade;

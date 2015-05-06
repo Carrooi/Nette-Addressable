@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Test: Carrooi\Labels\Addressable\Entities\TAddressable
+ * Test: Carrooi\Addressable\Entities\TAddressable
  *
- * @testCase CarrooiTests\Labels\Addressable\Entities\TAddressableTest
+ * @testCase CarrooiTests\Addressable\Entities\TAddressableTest
  * @author David Kudera
  */
 
-namespace CarrooiTests\Labels\Model\Entities;
+namespace CarrooiTests\Addressable\Model\Entities;
 
 use Carrooi\Addressable\Model\DefaultEntities\DefaultAddress;
 use Carrooi\Addressable\Model\Entities\TAddressable;
