@@ -13,5 +13,6 @@ matrix:
 before_script:
   - composer self-update
   - composer install --no-interaction --prefer-source
+  - php ./tests/CarrooiTests/AddressableApp/bin/index.php orm:schema-tool:create
 
 script: ./vendor/bin/tester -s -p php -c ./tests/php.ini-unix ./tests/CarrooiTests/
